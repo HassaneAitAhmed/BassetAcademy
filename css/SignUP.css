@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+
+body {
+    margin: 0;
+}
+
+.SU-Inputs input{
+    outline: none;
+}
+
+.SU-container {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.SU-left-side {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    margin-left: 4%;
+    grid-column: 1/2;
+    width: 90%;
+}
+
+.SU-right-side {
+    grid-column: 2/3;
+    background-image: url('../assets/images/SignUpBackground.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.SU-FormText{
+    margin-bottom: 2%;
+}
+
+.SU-Inputs {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr) 1fr;
+    grid-template-columns: 50% 50%;
+    
+}
+
+.SU-input-field {
+    text-align: right;
+    padding: 10px; 
+    width: 90%;
+    margin-top: 5%;
+    justify-self: right;
+}
+
+.SU-SL {
+    border: 0;
+    grid-row: 3/4;
+    grid-column: 1/3;
+    margin-top: 2%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.SU-BR {
+    grid-row: 4/5;
+    grid-column: 1/3;
+    font-size: 2.4ch;
+    font-weight: bold;
+    text-align: center;
+    font-family: "Amiri";
+}
+
+#SU-SLT,
+#SU-BRT {
+    font-size: 3ch;
+    font-weight: bold;
+    font-family: "Amiri";
+}
+
+#SU-StudyLevel {
+    margin-bottom: 5%;
+}
+
+#SU-StudyLevel,
+#SU-Branch {
+    text-align: right;
+    width: 95%;
+    height: 50%;
+    margin-top: 1%;
+    justify-self: right;
+    font-size: 2ch;
+    font-family: "Amiri";
+}
+
+
+#SU-ResetForm,
+#SU-SubmitForm {
+    transform: scale(1);
+    align-self: center;
+    border-radius: 20px;
+    font-size: 2ch;
+    font-weight: bold;
+    font-family: "Amiri";
+    box-shadow: 1px 1px 1px;
+    background-color: bisque;
+    padding: 20px 50px;
+    transition: transform 0.4s ease;
+}
+
+#SU-ResetForm:hover {
+    background-color: red;
+    color: white;
+    transition: 0.4s;
+    transform: scale(1.2);
+}
+
+#SU-SubmitForm:hover {
+    background-color: rgb(32, 211, 32);
+    color: white;
+    transition: 0.4s;
+    transform: scale(1.2);
+}
+
+#SU-FirstName,
+#SU-LastName,
+#SU-PhoneNumber,
+#SU-Email,
+#SU-Password,
+#SU-ConfirmPassword {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom-color: orange;
+    font-size: x-large;
+    font-family: "Amiri";
+}
+
+#SU-FirstName:focus,
+#SU-LastName:focus,
+#SU-PhoneNumber:focus,
+#SU-Email:focus,
+#SU-Password:focus,
+#SU-ConfirmPassword:focus {
+    transition: 0.4s;
+    transform: scale(1.1);
+    border: 3px solid orange;
+}
+
+#SU-HeaderFormText {
+    font-size: 5ch;
+    font-weight: bold;
+}
+
+#SU-HeaderFormText::after {
+    position: relative;
+    left: 2%;
+    display: inline-block;
+    width: 50px;
+    content: " ";
+    height: 50px;
+    background-image: url("../../assets/images/SignUp.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.lastname-input{
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+.firstname-input{
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+.email-input{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+.phone-input{
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.SU-SL{
+    grid-column: 1/3;
+    grid-row: 3/4;
+}
+.SU-BR{
+    grid-column: 1/3;
+    grid-row: 4/5;
+}
+
+.confirm-password-input{
+    grid-column: 1/2;
+    grid-row: 5/6;
+}
+
+.password-input{
+    grid-column: 2/3;
+    grid-row: 5/6;
+}
+
+.submit-reset-input{
+    grid-column: 1/3;
+    grid-row: 6/7;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+.SU-Inputs select {
+    border-radius: 20px;
+    border: 2px solid black;
+    
+}
+
+
+
+.SU-Inputs select:hover {
+    background-color: #eaeaea;
+    cursor: pointer;
+}
+
+
+.SU-Inputs select:focus {
+    border-color: #ff8800;
+    box-shadow: 0 0 5px rgba(255, 136, 0, 0.5);
+}
+
+.Su-error {
+    font-size: 15px;
+    font-family: "Amiri";
+    color: red;
+    margin: 0;
+}
+
+@media screen and (max-width: 780px) {
+
+    .SU-container {
+        display: flex;
+    }
+    
+    .SU-left-side {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        margin-bottom: 50px;
+     }
+    
+
+    .SU-Inputs{
+        display: grid;
+        grid-template-rows: repeat(9,1fr);
+        grid-template-columns: 100%;
+    }
+    
+    .lastname-input{
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
+    .firstname-input{
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    .email-input{
+        grid-column: 1/2;
+        grid-row: 3/4;
+    }
+    .phone-input{
+        grid-column: 1/2;
+        grid-row: 4/5;
+    }
+
+    .SU-SL{
+        grid-column: 1/2;
+        grid-row: 5/6;
+    }
+    .SU-BR{
+        grid-column: 1/2;
+        grid-row: 6/7;
+    }
+
+    .confirm-password-input{
+        grid-column: 1/2;
+        grid-row: 7/8;
+    }
+
+    .password-input{
+        grid-column: 1/2;
+        grid-row: 8/9;
+    }
+
+    .submit-reset-input{
+        grid-column: 1/2;
+        grid-row: 9/10;
+    }
+
+    #SU-ResetForm,
+    #SU-SubmitForm {
+    padding: 10px 15px;
+}
+  
+}
+
+
+

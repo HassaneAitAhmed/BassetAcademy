@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
+
+
+.abt {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    font-family: "Cairo", serif;
+    margin-bottom: 50px;
+}
+
+.FirstAbt {
+    display: flex;
+    gap: 10px;
+}
+
+
+.FirstAbt img {
+    width: 90%;
+    height: 100%;
+}
+
+
+
+.beOne {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.beOne h2 {
+    text-align: center;
+    width: auto;
+    padding: 25px;
+    border: 3px #ba8ae23f solid;
+    border-radius: 35px 12px;
+    transition: 0.4s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    opacity: 0.5;
+    
+}
+
+.beOne h2:hover {
+    opacity: 1;
+}
+
+.secgrid {
+    padding: 20px;
+    text-align: center;
+
+}
+
+.secgrid h3 {
+    text-align: center;
+    padding: 25px;
+    border: 3px #3929463f solid;
+    border-radius: 5px;
+    max-width: 40%;
+    background-color: rgba(134, 179, 255, 0.464);
+    color: white;
+    margin: auto;
+
+}
+
+.secgrid p {
+    text-align: right;
+    padding: 20px;
+    border: 0  solid;
+    border-radius: 10px;
+    background-color: #9dacff;
+}
+
+
+.secabt {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.secabt img {
+    width: 100%;
+    height: 100%;
+}
+
+.Us {
+    width: 85%;
+    text-align: right;
+    padding: 25px;
+    border: 0 #3929463f solid;
+    border-radius: 10px;
+    background-color: #9dacff;
+    font-size: 1vw;
+}
+
+
+.persons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+
+.persons img {
+    width: 80%;
+    border-radius: 10px;
+    margin: 10px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #392946;
+    transition: all 0.4s ease;
+}
+
+.eachone {
+    background-color: rgb(111, 217, 255);
+    border-radius: 10px;
+}
+
+.eachone h3 {
+    text-align: center;
+    color: rgb(181, 86, 86);
+    border-style: solid;
+    border-width: 2px;
+    border-color: #2c2b5f;
+    border-radius: 10px;
+}
+
+.eachone:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+    background-color: #7e7cda;
+}
+
+.about-us2 >img {
+    max-width: 80%;
+}
+
+.about-us2{
+    text-align: left;
+}
+
+.developers {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin: auto;
+}
+
+.abt-us3 {
+    width: 40%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .FirstAbt {
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .FirstAbt img {
+        width: 80%;
+        height: auto;
+        margin: auto;
+    }
+
+    .secabt {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Us {
+        font-size: 3vw;
+        padding: 15px;
+    }
+
+    .about-us2{
+        text-align: center;
+    }
+
+    .secgrid h3,
+    .secgrid p {
+        width: 90%;
+        font-size: 4vw;
+    }
+
+    .persons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .persons img {
+        width: 70%;
+    }
+
+    .eachone h2,
+    .eachone h3 {
+        font-size: 4vw;
+    }
+
+    .abt-us3 {
+        width: 100%;
+        margin: auto;
+    }
+}

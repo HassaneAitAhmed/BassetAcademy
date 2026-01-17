@@ -1,0 +1,141 @@
+.review-container{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5%;
+    padding-top: 1%;
+    width: 100%;
+    padding: 50px;
+    backdrop-filter: blur(4px);
+    border-radius: 50px;
+    box-sizing: border-box;
+
+}
+.exam-result-stats{
+    margin: auto;
+    margin-top: 2%;
+    border: 2px solid;
+    width: 90%;
+    text-align: center;
+    border-collapse: collapse;
+    box-shadow: 0px 4px 8px black;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.popup.open {
+    display: block;
+}
+
+.success-popup {
+    background-color: lightgreen;
+}
+
+.error-popup {
+    background-color: lightcoral;
+}
+
+.success-message {
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 50%;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+
+.error-message {
+    display: none;
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 50%;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+
+.success-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #4CAF50; 
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 60%; 
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.exam-result-stats tr:first-child{
+    background-color: rgb(76, 120, 154);
+    color: white;
+    font-size: 3ch;
+    border-radius: 20px;
+    border: 0;
+}
+
+.exam-result-stats th , .exam-result-stats td{
+    width: 15vw;
+    height: 50px;
+    text-align: center;
+    border: 1px solid;
+}
+
+.submit-btn {
+    display: inline-block;
+    background-color: #007BFF; 
+    color: white; 
+    font-size: 16px;
+    padding: 12px 24px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3; 
+}
+
+.submit-btn:active {
+    background-color: #004085;
+}
+
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+
+@media screen and (max-width: 768px) {
+    .review-container{
+        margin: 0;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    
+    
+    .exam-result-stats tr:first-child{
+        font-size: 1.7ch;
+    }
+    
+    
+}

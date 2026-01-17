@@ -1,0 +1,101 @@
+
+.course-info-container{
+    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin: 0;
+    background-image: url("/assets/images/course-info-background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.stats{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5%;
+    flex-wrap: wrap;
+    justify-content: end;
+}
+
+.stat-number{
+    display: flex;
+    flex-direction: row;
+    width: 170px;
+    height: 50px;
+    margin-right: 2%;
+    border-radius: 15%;
+    background-color: blue;
+    align-items: center;
+    color: white;
+    
+}
+
+.stat-left-side{
+    width: 70%;
+}
+
+.stat-left-side span{
+    margin-left: 25%;
+    font-size: 2.5ch;
+}
+.stat-right-side{
+    display: flex;
+    height: 100%;
+    width: 30%;
+    font-size: 2.5ch;
+    font-weight: bold;
+    background-color: orange;
+    border-radius: 10%;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-name{
+    margin-right:2% ;
+    font-size: 4ch;
+    color: white;
+}
+
+.course-info{
+    text-align: right;
+    margin-right:2% ;
+    font-size: 2.5ch;
+    color: black;
+    background-color: rgb(51, 20, 207);
+    padding: 1%;
+    border-radius: 5%;
+    color: white;
+}
+
+.course-creation-date{
+    display: flex;
+    flex-direction: row;
+    margin-right: 2%;
+    margin-top: 3%;
+    border-radius: 20%;
+    background-color: rgb(255, 200, 134);
+}
+
+.creation-date-text{
+    font-size: 2.5ch;
+    font-weight: bolder;
+
+}
+
+.creation-date{
+    font-size: 2.5ch;
+    font-weight: bolder;
+}
+
+.fa-plus{
+    font-size: 1.3ch;
+}
+
+
+@media screen and (max-width:768px){
+    .stats{
+        gap: 20px;
+    }
+}

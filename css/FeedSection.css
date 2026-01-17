@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.feed-back-container {
+padding: 20px;
+display: grid;
+grid-template-columns: 2fr 3fr;
+justify-content: center;
+align-items: center;
+gap: 20px;
+}
+
+.feed-back-container-left-side {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-image: url('/assets/images/feed-bg.jpg');
+background-position: right;
+border-radius: 20px;
+padding: 20px;
+}
+
+.feed-back-container-left-side h1 {
+font-size: 3rem;
+color: #0056b3;
+}
+
+.feed-back-container-left-side p {
+font-size: 1.2rem;
+font-weight: bold;
+color: #282828;
+margin-top: 10px;
+line-height: 1.4;
+text-align: center;
+}
+
+.feed-back-container-right-side {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 20px;
+justify-content: center;
+align-items: center;
+}
+
+.feed-back-container-card1, .feed-back-container-card2, .feed-back-container-card3, .feed-back-container-card4 {
+padding: 20px;
+margin: 10px;
+border-radius: 15px;
+background-color: #ffffff;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+border: 2px solid rgb(59, 59, 59);
+cursor: grab;
+}
+
+.feed-back-container-card1:hover, .feed-back-container-card2:hover, .feed-back-container-card3:hover, .feed-back-container-card4:hover {
+transform: translateY(-10px);
+box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+
+.feed-back-container-card1{
+background-image: url('/assets/images/card-bg4.jpg');
+background-position: center;
+}
+.feed-back-container-card2{
+background-image: url('/assets/images/card-bg2.jpg');
+background-position: center;
+}
+
+.feed-back-container-card3{
+background-image: url('/assets/images/card-bg3.jpg');
+background-position: center;
+}
+
+.feed-back-container-card4{
+background-image: url('/assets/images/card-bg5.jpg');
+background-position: center;
+}
+
+
+.feed-back-container-left-side h1 {
+font-size: 1.9rem;
+font-weight: bold;
+color: #ff7f50;
+margin-bottom: 10px;
+}
+
+.feed-back-container-left-side p {
+font-size: 1.1rem;
+font-weight: 900;
+line-height: 1.6;
+color: #2b2b2b;
+}
+
+@media screen and (max-width: 768px) {
+.feed-back-container {
+grid-template-columns: 1fr;
+}
+
+.feed-back-container-right-side {
+grid-template-columns: 1fr;
+}
+
+.feed-back-container-left-side h1  {
+font-size: 1.5rem;
+}
+
+.feed-back-container-left-side p {
+font-size: 0.9rem;
+}
+
+.feed-back-container-card1, .feed-back-container-card2, .feed-back-container-card3, .feed-back-container-card4 {
+margin: 10px 0;
+padding: 15px;
+}
+}
+

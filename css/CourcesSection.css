@@ -1,0 +1,208 @@
+
+.courses-container {
+    background: no-repeat();
+    background-position: right;
+    padding-bottom: 30px;
+    font-family: 'Arial', sans-serif;
+    background: white;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.courses-container .title {
+    text-align: center;
+    color: rgb(255, 138, 60);
+    font-size: 24px;
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.years {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.card {
+    background-position: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card h1 {
+    color: rgb(99, 99, 99);
+    font-size: 32px;
+    font-weight: 800;
+    font-family: monospace;
+    margin-bottom: 15px;
+}
+
+.card ul li {
+    color: rgb(122, 122, 122);
+    font-size: 16px;
+    font-weight: 800;
+    font-family: monospace;
+}
+
+
+.semesters {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 0 auto;
+    flex: 1;
+}
+
+.semester.card {
+    background-image: url('/assets/images/card-semesterbg.jpg');
+    background-position: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+
+
+.semester.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.semester.card h1 {
+    color: rgb(99, 99, 99);
+    font-size: 24px;
+    font-weight: 800;
+    font-family: monospace;
+    margin-top: 15px;
+}
+
+.semester .image_container {
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 20px;
+}
+
+
+.subscription {
+    display: flex;
+    padding: 15px 30px;
+    background-color: rgb(240, 240, 240);
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    border: 2px solid rgb(183, 163, 255);  
+    border-radius: 20px;  
+}
+
+.subscription p {
+    padding: 10px 20px;
+    background-color: rgb(255, 227, 176);
+    border: 2px solid white;
+    border-radius: 20px;
+    font-weight: bold;
+    color: orange;
+}
+
+.subscription a {
+    padding: 10px 20px;
+    border-radius: 20px; 
+    background-color: #9e43ff;
+    color: white;
+    border: 2px solid wheat;
+}
+
+#backButton {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: orange;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    margin: 20px auto;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#backButton:hover {
+    background-color: #6a11cb;
+}
+
+.image_container {
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 20px;
+}
+
+.image_container img {
+    border-radius: 20px;
+}
+
+hr {
+    border: 1px solid rgb(123, 123, 253);
+}
+
+.courses-container a {
+    text-decoration: none;
+    color: #fff;
+    font-size: larger;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    background-color: rgb(123, 123, 253);
+    border-radius: 100%;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .years {
+        display: flex;
+        flex-direction: column;
+    }
+    .courses-container .title {
+        font-size: 14px;
+    }
+    .semesters {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .subscription {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px;
+        background-color: rgb(240, 240, 240);
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+        border: 2px solid rgb(183, 163, 255);  
+        border-radius: 20px;  
+    }
+
+    
+}
+

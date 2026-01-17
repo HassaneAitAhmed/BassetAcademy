@@ -1,0 +1,1073 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+
+
+.dashboard-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 380px;
+    background-color: #94a9ff;
+    color: #fff;
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: rgb(102, 0, 185);
+    font-weight: bold;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    color: blue;
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.4s ease-in-out, transform 0.2s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #38ada9;
+    transform: translateX(10px);
+    color: #fff;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #f0f4f8;
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.main-content h3 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #34495e;
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+}
+
+.main-content p {
+    font-size: 1.3em;
+    color: #666;
+    margin-bottom: 40px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.content-section {
+    display: none;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.scrollable-section {
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scrollable-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scrollable-section::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.scrollable-section::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+
+.messagePopUp {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.messagePopUp-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+.messagePopUp .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.TablePayment table button {
+    background-color: #4CAF50; /* Green color */
+    color: white; /* White text */
+    padding: 8px 16px; /* Padding around the text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Adjust font size */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    margin-top: 5px; /* Slight margin on top */
+}
+
+/* Hover effect */
+.TablePayment table button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Focus effect */
+.TablePayment table button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(72, 255, 72, 0.7); /* Green glow effect */
+}
+
+
+
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+    
+}
+
+.sidebar ul li a:hover i {
+    transform: rotate(360deg);
+    transition: transform 0.4s ease;
+}
+
+
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif;
+}
+
+.modal-content label {
+    display: block;
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    transition: border 0.3s ease;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="file"]:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+    border-color: #3498db;
+    outline: none;
+    background-color: #fff;
+}
+
+.modal-content textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.modal-content .form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.modal-content .form-row .course-content {
+    flex: 1;
+    min-width: 150px;
+}
+
+.modal-content button[type="submit"] {
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.modal-content button[type="submit"]:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+    }
+
+    .modal-content .form-row {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+.course-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.course-content h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.course-content label {
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 1.1em;
+    direction: rtl;
+}
+
+.course-content input[type="text"],
+.course-content textarea,
+.course-content select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    direction: rtl;
+}
+
+.course-content input[type="text"]:focus,
+.course-content textarea:focus,
+.course-content select:focus {
+    border-color: #3498db;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+    outline: none;
+}
+
+.course-content textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.course-content input[type="file"] {
+    display: none;
+}
+
+.course-content label[for="videoThumbnail"],
+.course-content label[for="summaryPdf"],
+.course-content label[for="materialsPdf"],
+.course-content label[for="assignmentsPdf"] {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-content label[for="videoThumbnail"]:hover,
+.course-content label[for="summaryPdf"]:hover,
+.course-content label[for="materialsPdf"]:hover,
+.course-content label[for="assignmentsPdf"]:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.course-content select {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    direction: rtl;
+}
+
+.submit-btn {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #27ae60;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .course-content {
+        padding: 15px;
+    }
+
+    .course-content h2 {
+        font-size: 1.5em;
+    }
+}
+
+
+
+
+.assignment-centent {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.assignment-centent h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.assignment-centent label {
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 1.1em;
+}
+
+.assignment-centent input[type="text"],
+.assignment-centent textarea,
+.assignment-centent select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.assignment-centent input[type="text"]:focus,
+.assignment-centent textarea:focus,
+.assignment-centent select:focus {
+    border-color: #3498db;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+    outline: none;
+}
+
+.assignment-centent textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.assignment-centent input[type="file"] {
+    display: none;
+}
+
+.assignment-centent label[for="AQexam-thumbnail"],
+.assignment-centent label[for="AQ-exam-files"] {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.assignment-centent label[for="AQexam-thumbnail"]:hover,
+.assignment-centent label[for="AQ-exam-files"]:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-centent select {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.assignment-centent .submit-btn {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+.assignment-centent .submit-btn:hover {
+    background-color: #27ae60;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .assignment-centent {
+        padding: 15px;
+    }
+
+    .assignment-centent h2 {
+        font-size: 1.5em;
+    }
+}
+
+
+
+
+.exam-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.create-exam h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.exam-field {
+    margin-bottom: 20px;
+}
+
+.exam-field label {
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 1.1em;
+}
+
+.exam-field input[type="text"],
+.exam-field input[type="date"],
+.exam-field textarea,
+.exam-field input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exam-field input[type="text"]:focus,
+.exam-field input[type="date"]:focus,
+.exam-field textarea:focus,
+.exam-field input[type="file"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+    outline: none;
+}
+
+.exam-field textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.submit-btn {
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+.submit-btn:hover {
+    background-color: #27ae60;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .exam-content {
+        padding: 15px;
+    }
+
+    .create-exam h2 {
+        font-size: 1.5em;
+    }
+}
+
+
+
+
+.messages-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+}
+
+.messages-content h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.messages-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.message-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: grab;
+}
+
+
+.message-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.message-card h3 {
+    font-size: 1.4em;
+    color: #34495e;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.message-card p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.message-card .messg-options{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 15px;
+}
+.message-card .messg-options .reply{
+    padding: 10px 30px;
+    background-color: rgb(236, 236, 236);
+    border-radius: 20px;
+}
+.message-card .messg-options .reply a{
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: bold;
+}
+.message-card .messg-options button{
+    border: none;
+    background: rgb(255, 130, 130);
+    color: whitesmoke;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+
+.message-card .stars{
+    margin: 10px 0;
+
+
+    
+}
+
+.stars p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    .messages-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .messages-content {
+        padding: 15px;
+    }
+    
+    .message-card {
+        padding: 10px;
+    }
+}
+
+.feed-card{
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: grab;
+}
+
+.feeds-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+
+
+
+.StudentL {
+    direction: rtl;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.StudentL h1 {
+    border: 3px solid #333;
+    border-radius: 5px;
+    padding: 1% 0 1.2% 0;
+    margin-bottom: 5%;
+    color: #333;
+    font-weight: bold;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.SearchStudent {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+}
+
+.SearchStudent input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.StudentL button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: rgb(47, 144, 228);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.SearchStudent button:hover {
+    background-color: rgb(15, 105, 184);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.TableStudent {
+    margin-top: 5%;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.6s ease;
+    overflow-x: auto;
+}
+
+.TableStudent:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+.TableStudent table {
+    width: 100%;
+}
+
+.TableStudent td, th {
+    padding: 8px;
+}
+
+.TableStudent th {
+    padding-bottom: 10px;
+}
+
+.TableStudent td {
+    cursor: pointer;
+}
+
+.popUpStudentinfo {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    direction: rtl;
+}
+
+.popUpStudentinfo-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popUpStudentinfo-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.popUpStudentinfo-field p {
+    font-weight: bold;
+    margin-bottom: 5px;
+    direction: rtl;
+    text-align: right;
+}
+
+.popUpStudentinfo-field input,
+.popUpStudentinfo-field select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+
+
+.PaymentReview {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: right;
+}
+.PaymentReview h1 {
+    text-align: center;
+    color: #444;
+}
+
+.TablePayment {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.TablePayment table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.TablePayment th,
+.TablePayment td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.TablePayment th {
+    background-color: #f7f7f7;
+    color: #333;
+    font-weight: bold;
+}
+
+.TablePayment td img {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.TablePayment td img:hover {
+    transform: scale(1.1);
+}
+
+.paymentPopUp {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.paymentPopUp-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.paymentPopUp-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.paymentPopUp-field {
+    margin-bottom: 15px;
+
+}
+
+.paymentPopUp-field p {
+    margin: 0;
+    font-weight: bold;
+    color: #555;
+}
+
+.paymentPopUp-field input[type="text"],
+.paymentPopUp-field input[type="number"],
+.paymentPopUp-field input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.paymentPopUp-field img {
+    display: block;
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.accept-btn , .download-btn , .reject-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:focus {
+    outline: none;
+}
+
+.accept-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.download-btn {
+    background-color: #2196F3;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.revbutton{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+
+
+
+
+    .styled-price {
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        color: #333;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+        margin: 20px 0px;
+    }
+
+    .styled-price:focus {
+        border-color: #2E7D32;
+        outline: none;
+    }

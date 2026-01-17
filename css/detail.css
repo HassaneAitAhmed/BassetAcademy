@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+
+* {
+    font-family: 'Amiri';
+}
+
+.main-course {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 40px;
+}
+
+.course-card-section {
+    direction: rtl;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    width: 25%;
+    margin-left: 0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 40%
+}
+
+.course-card-section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.course-image img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.course-image img:hover {
+    transform: scale(1.05);
+}
+
+.course-info-section {
+    margin: 25px 0;
+}
+
+.course-info-section p{
+    font-family: "Amiri";
+}
+
+.course-info-section h1 {
+    font-size: 2rem;
+    color: #ff7800;
+    margin: 0;
+    font-weight: bold;
+}
+
+.course-info-section p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.8;
+    margin: 15px 0;
+}
+
+.course-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+.price-currency {
+    background-color: #ffdd00;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.price-amount {
+    background-color: #007bff;
+    padding: 8px 25px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.subscribe-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: #0056b3;
+}
+
+.course-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #555;
+    margin-top: 20px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.detail span {
+    font-weight: bold;
+    color: #333;
+}
+
+.detail small {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.video {
+    width: 60%;
+    height: 600px;
+    margin-left: auto;
+
+}
+
+.video>iframe {
+    border-radius: 9px;
+    width : 100%;
+    height: 100%;
+}
+
+.details {
+    max-width: 75%;
+    margin-top: 10%;
+    max-height:min-content;
+    margin-left: auto;
+    display: block;
+    background-color: #7fb1e7;
+    color: #333;
+    direction: rtl;
+    border: solid 1px #555;
+    border-radius: 8px;
+    padding : 40px;
+    padding-bottom: 8px;
+}
+
+.details p {
+    margin: 0;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .main-course {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .video{
+        margin: 10px;
+        width: 100%;
+        height: auto;
+    }
+    .course-card-section {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .course-info-section h1 {
+        font-size: 1.6rem;
+    }
+
+    .course-info-section p {
+        font-size: 1rem;
+    }
+
+    .price-amount {
+        font-size: 1.3rem;
+    }
+
+    .subscribe-btn {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+
+    .course-details {
+        gap: 15px;
+    }
+    .details {
+        margin-left: auto;
+        margin-right: auto;
+}
+}

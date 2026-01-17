@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+
+
+body {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+}
+
+.left-side {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-width: 20%;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.middle-part{
+    display: flex;
+    width: 60%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.middle-part a,.right-side a{
+    text-decoration: none;
+}
+
+.Navbtn {
+    display: flex;
+    color: black;
+    border-radius: 2px solid;
+    padding: 12px;
+    border: 2px solid black;
+    align-items: center;
+    font-size: 18px;
+    font-family: "Amiri";
+    font-weight: bold;
+    border-radius: 20%;
+    justify-content: center;
+    background: linear-gradient(to right, orange 50%, white 50%);
+    background-size: 200% 100%;
+    background-position: right;
+    transition: background-position 0.8s ease, color 0.8s ease;
+}
+
+.LOG {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#LogInNavbtn{
+    margin-top: 20px;
+}
+#LogInNavbtn,#SignInNavbtn{
+    margin-bottom: 5%;
+    width: 50%;
+}
+
+#LogInNavbtn:hover,
+#SignInNavbtn:hover,
+#contact-us-btn:hover,
+#about-us-btn:hover,
+#courses-btn:hover {
+    transition: 0.8s;
+    background-position: left;
+    box-shadow: 3px 3px 3px black;
+    cursor: pointer;
+}
+
+#contact-us-btn {
+    margin-right: 3%;
+    width: 12%;
+
+}
+
+#about-us-btn {
+    margin-right: 3%;
+    width: 12%;
+}
+
+#courses-btn {
+    margin-right: 3%;
+    width: 12%;
+
+}
+
+.drop-down {
+    display: none;
+}
+
+
+.media-drop-down-btns {
+    display: flex;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    gap: 10px;
+    background-color: gold;
+    padding: 10px;
+    align-items: center;
+    border-radius: 5%;
+    transition: opacity 0.5s ease, height 0.5s ease;
+}
+
+.media-drop-down-btns.show {
+    opacity: 1;
+    height: auto; 
+}
+
+.on-media-btns {
+    display: flex;
+    margin-top: 2%;
+    background-color: white;
+    width: 90%;
+    height: 7vh;
+    border: 1px solid;
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 20%;
+    justify-content: center;
+    background-color: rgb(255, 229, 180);
+}
+
+
+.fa-arrow-right-to-bracket,.fa-user-plus{
+    font-size: 2.5ch;
+    margin-right: 10px;
+}
+
+.media-drop-down-btns a{
+    text-decoration: none;
+    color: black;
+}
+
+
+@media screen and (max-width: 768px){
+
+    .container{
+        width: 100%;
+    }
+
+    .left-side {
+        justify-content: start;
+        width: 50%;
+    }
+    
+    .right-side {
+        position: relative;
+        width: 50%;
+        justify-content: center;
+        align-items: end;
+        right: 5%;
+    }
+    
+    .middle-part{
+        display: none;
+    }
+    
+    .left-side img{
+        margin-left: 10%;
+        width: 150px;
+        height: 110px;
+    }
+
+    .Navbtn {
+        display: none;
+    }
+
+    .drop-down {
+        display: flex;
+    }
+
+    #drop-down-menu {
+        display: none;
+    }
+
+    #DDM-label {
+        display: inline-block;
+        width: 70px;
+        height: 60px;
+        margin-right: 20%;
+        border-radius: 10%;
+        margin-top: 10%;
+        background-repeat: no-repeat;
+    }
+    
+    .fa-sign-in-alt,.fa-user{
+        margin-right: 5%;
+    }
+    
+}
