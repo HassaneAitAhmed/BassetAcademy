@@ -17,23 +17,18 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
 
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'db_connection.php';
 
 $searchQuery = isset($_POST['search']) ? $_POST['search'] : '';
+$searchParam = "%" . $searchQuery . "%";
 
 $sql = "SELECT UserID, CONCAT(User_FirstName, ' ', User_LastName) AS FullName, User_Email, User_Phone, User_Points
         FROM User WHERE Role = 'Student' AND 
-        (User_FirstName LIKE '%$searchQuery%' OR User_LastName LIKE '%$searchQuery%' OR User_Email LIKE '%$searchQuery%')";
-$result = $conn->query($sql);
+        (User_FirstName LIKE ? OR User_LastName LIKE ? OR User_Email LIKE ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sss", $searchParam, $searchParam, $searchParam);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     die("Error in SQL query: " . $conn->error);
@@ -50,8 +45,10 @@ if ($result->num_rows > 0) {
 
 if (isset($_POST['delete_user'])) {
     $userID = $_POST['delete_user'];
-    $deleteSql = "DELETE FROM User WHERE UserID = $userID";
-    if ($conn->query($deleteSql) === TRUE) {
+    $deleteSql = "DELETE FROM User WHERE UserID = ?";
+    $stmt = $conn->prepare($deleteSql);
+    $stmt->bind_param("i", $userID);
+    if ($stmt->execute()) {
         echo "<script>alert('تم حذف الطالب بنجاح');</script>";
     } else {
         echo "<script>alert('خطأ في حذف الطالب');</script>";
@@ -66,16 +63,18 @@ if (isset($_POST['update_user'])) {
     $phone = $_POST['phone'];
     $points = $_POST['points'];
 
-    $updateSql = "UPDATE User SET User_FirstName = '$firstName', User_LastName = '$lastName', User_Email = '$email', User_Phone = '$phone', User_Points = $points WHERE UserID = $userID";
+    $updateSql = "UPDATE User SET User_FirstName = ?, User_LastName = ?, User_Email = ?, User_Phone = ?, User_Points = ? WHERE UserID = ?";
+    $stmt = $conn->prepare($updateSql);
+    $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phone, $points, $userID);
 
-    if ($conn->query($updateSql) === TRUE) {
+    if ($stmt->execute()) {
         echo "<script>alert('تم تعديل بيانات الطالب بنجاح');</script>";
     } else {
         echo "<script>alert('خطأ في تعديل بيانات الطالب');</script>";
     }
 }
 
-$conn->close();
+
 ?>
 
 

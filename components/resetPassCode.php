@@ -1,19 +1,14 @@
 <?php
 session_start();
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
-
-@$connection = new mysqli($servername, $username, $password, $dbname);
+include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['code'])) {
         $code = trim($_POST['code']);
 
         $query = 'SELECT * FROM Password_reset_codes WHERE Code = ?';
-        $stmt = $connection->prepare($query);
+        $stmt = $conn->prepare($query);
         $stmt->bind_param('i', $code);
         $stmt->execute();
         $result = $stmt->get_result();

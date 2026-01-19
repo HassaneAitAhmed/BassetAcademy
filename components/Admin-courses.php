@@ -30,18 +30,21 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
 
     <?php
     // Database connection
-    $conn = new mysqli('localhost', 'root', '', 'bassetdb');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'db_connection.php';
 
     // Delete tutorial
     if (isset($_POST['delete'])) {
         $tutorialID = intval($_POST['tutorial_ID']);
         if ($tutorialID > 0) {
-            $conn->query("DELETE FROM TutorialMaterials WHERE tutorial_ID = $tutorialID");
-            $conn->query("DELETE FROM TutorialSummary WHERE tutorial_ID = $tutorialID");
+            $stmt = $conn->prepare("DELETE FROM TutorialMaterials WHERE tutorial_ID = ?");
+            $stmt->bind_param("i", $tutorialID);
+            $stmt->execute();
+            $stmt->close();
+
+            $stmt = $conn->prepare("DELETE FROM TutorialSummary WHERE tutorial_ID = ?");
+            $stmt->bind_param("i", $tutorialID);
+            $stmt->execute();
+            $stmt->close();
             
             $deleteQuery = "DELETE FROM Tutorials WHERE tutorial_ID = ?";
             $stmt = $conn->prepare($deleteQuery);
@@ -230,9 +233,13 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
                         <td><?php echo $row['tutorial_description']; ?></td>
                         <td>
                             <?php
-                            $courseResult = $conn->query("SELECT Course_title FROM Course WHERE CourseID = " . $row['course_ID']);
+                            $stmt = $conn->prepare("SELECT Course_title FROM Course WHERE CourseID = ?");
+                            $stmt->bind_param("i", $row['course_ID']);
+                            $stmt->execute();
+                            $courseResult = $stmt->get_result();
                             $course = $courseResult->fetch_assoc();
                             echo $course ? $course['Course_title'] : 'N/A';
+                            $stmt->close();
                             ?>
                         </td>
                         <td class="table-actions">
@@ -271,7 +278,10 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
                                 <h3>Summaries</h3>
                                 <ul>
                                     <?php
-                                    $summaryResult = $conn->query("SELECT * FROM TutorialSummary WHERE tutorial_ID = " . $row['tutorial_ID']);
+                                    $summaryStmt = $conn->prepare("SELECT * FROM TutorialSummary WHERE tutorial_ID = ?");
+                                    $summaryStmt->bind_param("i", $row['tutorial_ID']);
+                                    $summaryStmt->execute();
+                                    $summaryResult = $summaryStmt->get_result();
                                     while ($summary = $summaryResult->fetch_assoc()):
                                     ?>
                                         <li>
@@ -281,7 +291,9 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
                                                 <button type="submit" name="delete_summary" class="button delete-button">Delete Summary</button>
                                             </form>
                                         </li>
-                                    <?php endwhile; ?>
+                                    <?php endwhile;
+                                    $summaryStmt->close();
+                                     ?>
                                 </ul>
                                 <form method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="tutorial_ID" value="<?php echo $row['tutorial_ID']; ?>">
@@ -292,7 +304,10 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
                                 <h3>Materials</h3>
                                 <ul>
                                     <?php
-                                    $materialResult = $conn->query("SELECT * FROM TutorialMaterials WHERE tutorial_ID = " . $row['tutorial_ID']);
+                                    $materialStmt = $conn->prepare("SELECT * FROM TutorialMaterials WHERE tutorial_ID = ?");
+                                    $materialStmt->bind_param("i", $row['tutorial_ID']);
+                                    $materialStmt->execute();
+                                    $materialResult = $materialStmt->get_result();
                                     while ($material = $materialResult->fetch_assoc()):
                                     ?>
                                         <li>
@@ -302,7 +317,9 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
                                                 <button type="submit" name="delete_material" class="button delete-button">Delete Material</button>
                                             </form>
                                         </li>
-                                    <?php endwhile; ?>
+                                    <?php endwhile;
+                                    $materialStmt->close();
+                                     ?>
                                 </ul>
                                 <form method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="tutorial_ID" value="<?php echo $row['tutorial_ID']; ?>">

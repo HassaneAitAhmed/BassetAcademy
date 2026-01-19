@@ -1,18 +1,12 @@
 <?php
 session_start();
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
-$port = 3306;
-
-$connection = new mysqli($servername, $username, $password, $dbname, $port);
+include '../db_connection.php';
 
 $courseID = isset($_GET['courseID']) ? intval(value: $_GET['courseID']) : 0;
 
 $sql = "SELECT * FROM course WHERE CourseID = ?";
-$stmt = $connection->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $courseID);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -47,14 +41,14 @@ if (isset($_SESSION['Course'])) {
 
     $query3 = 'SELECT * FROM `Tutorials` WHERE `course_ID` = ?';
 
-    if (!$stmt1 = $connection->prepare($query1)) {
-        die('Query 1 preparation failed: ' . $connection->error);
+    if (!$stmt1 = $conn->prepare($query1)) {
+        die('Query 1 preparation failed: ' . $conn->error);
     }
-    if (!$stmt2 = $connection->prepare($query2)) {
-        die('Query 2 preparation failed: ' . $connection->error);
+    if (!$stmt2 = $conn->prepare($query2)) {
+        die('Query 2 preparation failed: ' . $conn->error);
     }
-    if (!$stmt3 = $connection->prepare($query3)) {
-        die('Query 3 preparation failed: ' . $connection->error);
+    if (!$stmt3 = $conn->prepare($query3)) {
+        die('Query 3 preparation failed: ' . $conn->error);
     }
 
 
@@ -82,9 +76,9 @@ if (isset($_POST['Pay'])) {
     $state = 'ACTIVE';
 
     $query = "INSERT INTO studentcourse (CourseID, UserID, Status) VALUES (?, ?, ?)";
-    $stmt4 = $connection->prepare($query);
+    $stmt4 = $conn->prepare($query);
     if (!$stmt4) {
-        die("Error preparing statement: " . $connection->error);
+        die("Error preparing statement: " . $conn->error);
     }
     $stmt4->bind_param('iis', $CourseToBuy_id, $userBuyingIt_id, $state);
     $stmt4->execute();
@@ -92,14 +86,20 @@ if (isset($_POST['Pay'])) {
 
     $newBalance = $_POST['Pay'];
     $query = "UPDATE user SET User_Points = ? WHERE UserID = ?";
-    $stmt5 = $connection->prepare($query);
+    $stmt5 = $conn->prepare($query);
     if (!$stmt5) {
-        die("Error preparing statement: " . $connection->error);
+        die("Error preparing statement: " . $conn->error);
     }
     $stmt5->bind_param('ii', $newBalance, $userBuyingIt_id);
     $stmt5->execute();
     $stmt5->close();
-    $_SESSION['user']['User_Points'] = $connection->query("SELECT User_Points FROM user WHERE UserID = {$_SESSION['user']['UserID']}")->fetch_object()->User_Points;
+    
+    $stmt_points = $conn->prepare("SELECT User_Points FROM user WHERE UserID = ?");
+    $stmt_points->bind_param("i", $_SESSION['user']['UserID']);
+    $stmt_points->execute();
+    $result_points = $stmt_points->get_result();
+    $_SESSION['user']['User_Points'] = $result_points->fetch_object()->User_Points;
+    $stmt_points->close();
 }
 
 function replaceNewlineWithBr($text)
@@ -109,7 +109,7 @@ function replaceNewlineWithBr($text)
 
 if(isset($_SESSION['user'])){
     $query = 'SELECT User_Points FROM user WHERE UserID = ? ';
-    $stmt = $connection->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bind_param('i',$_SESSION['user']['UserID']);
     $stmt->execute();
     $stmt->bind_result($UserPoints);
@@ -398,31 +398,21 @@ if(isset($_SESSION['user'])){
 
 
         <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "bassetdb";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
+        
         $courseID = isset($_GET['courseID']) ? intval($_GET['courseID']) : 0;
         $userID = $_SESSION['user']['UserID'];
         
-        $courseQuery = "SELECT * FROM Course WHERE CourseID = ?";
-        $stmt = $conn->prepare($courseQuery);
-        $stmt->bind_param("i", $courseID);
-        $stmt->execute();
-        $course = $stmt->get_result()->fetch_assoc();
+        $courseQuery_2 = "SELECT * FROM Course WHERE CourseID = ?";
+        $stmt_2 = $conn->prepare($courseQuery_2);
+        $stmt_2->bind_param("i", $courseID);
+        $stmt_2->execute();
+        $course = $stmt_2->get_result()->fetch_assoc();
 
         $checkEnrollmentQuery = "SELECT * FROM StudentCourse WHERE CourseID = ? AND UserID = ? AND `Status` = 'ACTIVE'";
-        $enrollmentStmt = $conn->prepare($checkEnrollmentQuery);
-        $enrollmentStmt->bind_param("ii", $courseID, $userID);
-        $enrollmentStmt->execute();
-        $enrollmentResult = $enrollmentStmt->get_result();
+        $enrollmentStmt_2 = $conn->prepare($checkEnrollmentQuery);
+        $enrollmentStmt_2->bind_param("ii", $courseID, $userID);
+        $enrollmentStmt_2->execute();
+        $enrollmentResult = $enrollmentStmt_2->get_result();
 
         if ($enrollmentResult->num_rows === 0) {
             $notPurchasedMessage = "انت غير مشترك في هذه الدورة";
@@ -434,16 +424,16 @@ if(isset($_SESSION['user'])){
 
         if ($showContent) {
             $tutorialQuery = "SELECT * FROM Tutorials WHERE course_ID = ?";
-            $tutorialStmt = $conn->prepare($tutorialQuery);
-            $tutorialStmt->bind_param("i", $courseID);
-            $tutorialStmt->execute();
-            $tutorials = $tutorialStmt->get_result();
+            $tutorialStmt_2 = $conn->prepare($tutorialQuery);
+            $tutorialStmt_2->bind_param("i", $courseID);
+            $tutorialStmt_2->execute();
+            $tutorials = $tutorialStmt_2->get_result();
 
             $summaryQuery = "SELECT * FROM CourseSummarize WHERE CourseID = ?";
-            $summaryStmt = $conn->prepare($summaryQuery);
-            $summaryStmt->bind_param("i", $courseID);
-            $summaryStmt->execute();
-            $summaries = $summaryStmt->get_result();
+            $summaryStmt_2 = $conn->prepare($summaryQuery);
+            $summaryStmt_2->bind_param("i", $courseID);
+            $summaryStmt_2->execute();
+            $summaries = $summaryStmt_2->get_result();
         }
         ?>
 

@@ -1,14 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connection.php';
 
 $sql = "SELECT m.MessageID, m.UserName, m.UserEmail, m.MessageContent, m.MessageStatus 
         FROM Message m

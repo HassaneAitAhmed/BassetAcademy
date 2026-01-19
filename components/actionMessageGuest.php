@@ -30,19 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $My_Connection = new mysqli('localhost', 'root', '', 'bassetdb', 3306);
-
-        if ($My_Connection->connect_error) {
-            die("Database connection failed: " . $My_Connection->connect_error);
-        }
+        require_once 'db_connection.php';
 
         if ($user_id) {
             $query = 'INSERT INTO `message` (`UserId`, `UserName`, `UserEmail`, `MessageContent`, `MessageStatus`) VALUES (?, ?, ?, ?, ?)';
-            $stmt = $My_Connection->prepare($query);
+            $stmt = $conn->prepare($query);
             $stmt->bind_param('issss', $user_id, $Name, $Email, $Message, $Status);
         } else {
             $query = 'INSERT INTO `message` (`UserName`, `UserEmail`, `MessageContent`, `MessageStatus`) VALUES (?, ?, ?, ?)';
-            $stmt = $My_Connection->prepare($query);
+            $stmt = $conn->prepare($query);
             $stmt->bind_param('ssss', $Name, $Email, $Message, $Status);
         }
 
@@ -57,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "فشل إعداد الطلب.";
         }
 
-        $My_Connection->close();
+        $conn->close();
     } else {
         foreach ($errors as $error) {
             echo $error . "<br>";

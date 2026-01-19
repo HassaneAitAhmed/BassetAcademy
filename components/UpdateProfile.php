@@ -1,16 +1,7 @@
 <?php
 session_start();
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'db_connection.php';
 
 if (isset($_SESSION['user']['UserID'])) {
     $query = 'SELECT * FROM User WHERE UserID = ?';
@@ -111,7 +102,7 @@ if(isset($_SESSION['user'])){
 }
 
 
-$conn->close();
+
 
 ?>
 

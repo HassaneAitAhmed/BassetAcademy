@@ -1,11 +1,6 @@
 <?php
 session_start();
-$host = 'localhost';
-$dbname = 'bassetdb';
-$username = 'root';
-$password = '';
-
-@$connection = new mysqli($host,$username,$password,$dbname);
+include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['postText']) && isset($_FILES['postImage'])) {
     
@@ -27,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['postText']) && isset(
     $Status = 'ACTIVE';
 
     $query = 'INSERT INTO `post` (`PostDescription`, `PostLikesCounter`, `PostStatus`, `PostImage`, `PostPublicationDate`,`UserID`) VALUES (?,?,?,?,CURDATE(),?) ';
-    $stmt = $connection->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bind_param('sissi',$postText,$Likes,$Status,$fileDestination,$_SESSION['user']['UserID']);
 
     $stmt->execute();
@@ -37,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['postText']) && isset(
 if (isset($_POST['postToBeDeleted'])) {
     $PID = $_POST['postToBeDeleted'];
     $query = 'DELETE FROM `post` WHERE PostID = ?';
-    $stmt = $connection->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $PID);
     $stmt->execute();
    
 }
 
 
+$conn->close();
 header("Location: pages/Montada-teacher.php");
-$connection->close();
 ?>

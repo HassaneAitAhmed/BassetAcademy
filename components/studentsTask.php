@@ -14,16 +14,7 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
     exit();
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'db_connection.php';
 
 $courses = [];
 $tasks = [];

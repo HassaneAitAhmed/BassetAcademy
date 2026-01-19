@@ -1,15 +1,6 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'db_connection.php';
 
 $sql = "SELECT PostID, PostDescription, PostImage, PostLikesCounter,PostPublicationDate FROM post";
 $result = $conn->query($sql);
@@ -24,5 +15,5 @@ if ($result->num_rows > 0) {
 header('Content-Type: application/json');
 echo json_encode($data);
 
-$conn->close();
+
 ?>
