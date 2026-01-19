@@ -2,16 +2,7 @@
 
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'errors' => ['general' => 'Failed to connect to the database.']]));
-}
+include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
@@ -23,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $title = $conn->real_escape_string($_POST['title'] ?? '');
-    $description = $conn->real_escape_string($_POST['description'] ?? '');
+    $title = trim($_POST['title'] ?? '');
+    $description = trim($_POST['description'] ?? '');
     $course_id = isset($_POST['course_id']) ? (int)$_POST['course_id'] : 0;
 
     // Validation
@@ -65,9 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert tutorial
     $tutorial_sql = "INSERT INTO Tutorials (tutorial_title, tutorial_description, course_ID, tutorial_video, UserID)
-                     VALUES ('$title', '$description', $course_id, '$video_upload_path', $user_id)";
+                     VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($tutorial_sql);
+    $stmt->bind_param("ssisi", $title, $description, $course_id, $video_upload_path, $user_id);
 
-    if ($conn->query($tutorial_sql) === TRUE) {
+
+    if ($stmt->execute()) {
         $tutorial_id = $conn->insert_id;
 
         // Handle materials upload
@@ -78,8 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $material_upload_path = "uploads/materials/" . $material_name;
                     if (move_uploaded_file($tmp_name, $material_upload_path)) {
                         $material_sql = "INSERT INTO TutorialMaterials (Material_content, tutorial_ID)
-                                         VALUES ('$material_upload_path', $tutorial_id)";
-                        $conn->query($material_sql);
+                                         VALUES (?, ?)";
+                        $material_stmt = $conn->prepare($material_sql);
+                        $material_stmt->bind_param("si", $material_upload_path, $tutorial_id);
+                        $material_stmt->execute();
+                        $material_stmt->close();
                     }
                 }
             }
@@ -93,8 +90,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $summary_upload_path = "uploads/summaries/" . $summary_name;
                     if (move_uploaded_file($tmp_name, $summary_upload_path)) {
                         $summary_sql = "INSERT INTO TutorialSummary (summary_content, tutorial_ID)
-                                        VALUES ('$summary_upload_path', $tutorial_id)";
-                        $conn->query($summary_sql);
+                                        VALUES (?, ?)";
+                        $summary_stmt = $conn->prepare($summary_sql);
+                        $summary_stmt->bind_param("si", $summary_upload_path, $tutorial_id);
+                        $summary_stmt->execute();
+                        $summary_stmt->close();
                     }
                 }
             }
@@ -104,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo json_encode(['success' => false, 'errors' => ['general' => 'حدث خطأ أثناء إنشاء الدورة.']]);
     }
+    $stmt->close();
 }
 
 $conn->close();

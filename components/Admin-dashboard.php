@@ -17,35 +17,7 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
 
 
 
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$query = "SELECT CourseID, Course_title FROM Course";
-$result = $conn->query($query);
-
-$courses = "";
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $courseID = $row['CourseID'];
-        $courseTitle = $row['Course_title'];
-        $courses .= "<option value='$courseID'>$courseTitle</option>";
-    }
-} else {
-    $courses = "<option value='' disabled>No courses available</option>";
-}
-
-$conn->close();
-?>
+<?php include 'src/AdminDashboardLogic.php'; ?>
 
 
 
@@ -58,79 +30,8 @@ $conn->close();
     <title>Teacher Dashboard</title>
     <link rel="stylesheet" href="../css/Admin-Dashboard1.css">
     <link rel="stylesheet" href="../css/nav-teacher.css">
-    <script defer src="../js/components/nav.js"></script>
-    <script defer src="../js/components/AdminDashboard.js"></script>
-    <script defer src="../js/components/Listandpay.js"></script>
-    <script src="https://kit.fontawesome.com/b88200da0c.js" crossorigin="anonymous"></script>
-    <script>
-        function redirectToHome() {
-            window.location.href = "../admin.php";
-        }
-    </script>
     <link rel="stylesheet" href="../css/footer.css">
-</head>
-
-<style>
-
-#course-price {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    direction: rtl;  
-    font-family: Arial, sans-serif;
-}
-
-#course-price:focus {
-    border-color: #007BFF;
-    outline: none;
-}
-    /* Error message styling */
-    .error-message {
-        color: red;
-        font-size: 14px;
-        margin-top: 5px;
-        display: none;
-    }
-
-    .error-message.active {
-        display: block;
-    }
-
-    /* Submit button styling */
-    .submit-button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 20px;
-        transition: background-color 0.3s ease;
-    }
-
-    .submit-button:hover {
-        background-color: #0056b3;
-    }
-
-    .logout-button {
-    background-color: #f44336; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    cursor: pointer; 
-    border-radius: 5px;
-    transition: background-color 0.3s ease; }
-
-.logout-button:hover {
-    background-color: #d32f2f;
-}
-
-</style>
-
+    <script src="https://kit.fontawesome.com/b88200da0c.js" crossorigin="anonymous"></script>
 <body>
     <nav>
         <div class="container">
@@ -246,7 +147,7 @@ $conn->close();
                             <input type="file" id="summaries" name="summaries[]" accept="application/pdf" multiple>
                             <div class="error-message" id="summaries-error"></div>
 
-                            <button type="button" id="submitButton" class="submit-button">إنشاء الدورة
+                            <button type="submit" class="submit-button">إنشاء الدورة
                                 التعليمية</button>
                         </div>
                     </form>
@@ -289,48 +190,10 @@ $conn->close();
                                 multiple>
                             <div class="error-message" id="course-summarize-error"></div>
 
-                            <button type="button" id="createCourseButton" class="submit-button">إنشاء الدورة</button>
+                            <button type="submit" class="submit-button">إنشاء الدورة</button>
                         </div>
                     </form>
                 </div>
-
-
-                <script>
-                    document.getElementById('createCourseButton').addEventListener('click', function () {
-                        const formData = new FormData(document.getElementById('courseForm'));
-
-                        document.querySelectorAll('#course .error-message').forEach(div => div.textContent = '');
-
-                        fetch('create_course.php', {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('تم إنشاء الدورة بنجاح!');
-                                    location.reload(); // Reload or redirect as needed
-                                } else {
-                                    if (data.errors.general === 'session') {
-                                        alert('يرجى تسجيل الدخول قبل إنشاء دورة.');
-                                        return;
-                                    }
-
-                                    for (const [field, message] of Object.entries(data.errors)) {
-                                        const errorElement = document.getElementById(`${field}-error`);
-                                        if (errorElement) {
-                                            errorElement.textContent = message;
-                                            errorElement.classList.add('active');
-                                        }
-                                    }
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
-                    });
-
-                </script>
-
-
 
             </div>
             <div class="content-section" id="assignment">
@@ -384,54 +247,10 @@ $conn->close();
                             <p id="AQ-deadline-error" class="error-message" style="color:red;"></p>
                         </div>
 
-                        <button type="button" id="submitAssignmentBtn" class="submit-btn">إنشاء الواجب</button>
+                        <button type="submit" class="submit-btn">إنشاء الواجب</button>
                     </form>
                 </div>
             </div>
-
-            <script>
-                document.getElementById('submitAssignmentBtn').addEventListener('click', function () {
-                    const formData = new FormData(document.getElementById('assignmentForm'));
-
-                    document.querySelectorAll('.error-message').forEach(div => div.textContent = '');
-
-                    fetch('create_assignment.php', {
-                        method: 'POST',
-                        body: formData,
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error("Network response was not ok");
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                alert('تم إنشاء الواجب بنجاح!');
-                                location.reload(); 
-                            } else {
-                                if (data.errors) {
-                                    for (const [field, message] of Object.entries(data.errors)) {
-                                        const errorElement = document.getElementById(`${field}-error`);
-                                        if (errorElement) {
-                                            errorElement.textContent = message;
-                                            errorElement.classList.add('active');
-                                        }
-                                    }
-                                }
-
-                                if (data.errors.general) {
-                                    alert(data.errors.general);
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Fetch error:', error);
-                            alert('An error occurred. Please try again.');
-                        });
-                });
-
-            </script>
 
             <div class="content-section" id="exam">
                 <div class="exam-content">
@@ -481,59 +300,11 @@ $conn->close();
                                 <p id="exam_due_date-error" class="error-message" style="color:red;"></p>
                             </div>
 
-                            <button type="button" id="submitExamBtn" class="submit-btn">إنشاء الامتحان</button>
+                            <button type="submit" class="submit-btn">إنشاء الامتحان</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-
-            <script>
-                document.getElementById('submitExamBtn').addEventListener('click', function () {
-                    const formData = new FormData(document.getElementById('examForm'));
-
-                    document.querySelectorAll('.error-message').forEach(div => div.textContent = '');
-
-                    fetch('create_exam.php', {
-                        method: 'POST',
-                        body: formData,
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error("Network response was not ok");
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.success) {
-                                alert('تم إنشاء الامتحان بنجاح!');
-                                location.reload(); // Reload or redirect as needed
-                            } else {
-                                if (data.errors) {
-                                    for (const [field, message] of Object.entries(data.errors)) {
-                                        const errorElement = document.getElementById(`${field}-error`);
-                                        if (errorElement) {
-                                            errorElement.textContent = message;
-                                            errorElement.classList.add('active');
-                                        }
-                                    }
-                                }
-
-                                if (data.errors.general) {
-                                    alert(data.errors.general);
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Fetch error:', error);
-                            alert('An error occurred. Please try again.');
-                        });
-                });
-            </script>
-
-
-
-
 
             <div class="content-section scrollable-section" id="feedback">
                 <div class="messages-content">
@@ -656,67 +427,7 @@ $conn->close();
 
         </div>
     </div>
-
+<script defer src="../js/admin-dashboard.js"></script>
 </body>
-
-
-<script>
-    document.getElementById('submitButton').addEventListener('click', function () {
-        const formData = new FormData(document.getElementById('tutorialForm'));
-
-        document.querySelectorAll('.error-message').forEach(div => div.textContent = '');
-
-        fetch('create_tutorial.php', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('تم إنشاء الدورة التعليمية بنجاح!');
-                    location.reload(); // Reload or redirect as needed
-                } else {
-                    if (data.errors.general === 'session') {
-                        alert('يرجى تسجيل الدخول قبل إنشاء دورة.');
-                        return;
-                    }
-
-                    for (const [field, message] of Object.entries(data.errors)) {
-                        const errorElement = document.getElementById(`${field}-error`);
-                        if (errorElement) {
-                            errorElement.textContent = message;
-                            errorElement.classList.add('active');
-                        }
-                    }
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    });
-</script>
-<script defer>
-    document.querySelector("#logoutBtn").addEventListener("click", () => {
-        const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "logout.php", true);
-        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        xhttp.onload = function () {
-            if (xhttp.status === 200) {
-                window.location.href = "SignIn.php";
-            } else {
-                console.error("Logout failed.");
-            }
-        };
-
-        xhttp.onerror = function () {
-            console.error("Request error.");
-        };
-
-        xhttp.send("logout=true");
-    });
-
-    document.querySelector("#updateProfileBtn").addEventListener("click", function () {
-        window.location.href = "updateProfile.php";
-    });
-</script>
 
 </html>

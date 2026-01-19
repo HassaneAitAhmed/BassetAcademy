@@ -2,10 +2,10 @@
 include('db_connection.php');
 
 $query = "SELECT * FROM Payement WHERE PaymentStatus = 'pending'"; 
-$result = mysqli_query($conn, $query);
+$result = $conn->query($query);
 
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
         $payment_id = $row['PayementID'];
         $student_id = $row['StudentID'];
         $amount = $row['Payementvalue'];
@@ -13,11 +13,11 @@ if (mysqli_num_rows($result) > 0) {
         $proof = $row['Payementphoto'];
 
         $student_query = "SELECT User_LastName FROM User WHERE UserID = ?";
-        $stmt = mysqli_prepare($conn, $student_query);
-        mysqli_stmt_bind_param($stmt, 'i', $student_id);
-        mysqli_stmt_execute($stmt);
-        $student_result = mysqli_stmt_get_result($stmt);
-        $student = mysqli_fetch_assoc($student_result);
+        $stmt = $conn->prepare($student_query);
+        $stmt->bind_param('i', $student_id);
+        $stmt->execute();
+        $student_result = $stmt->get_result();
+        $student = $student_result->fetch_assoc();
         $student_name = $student['User_LastName'];
 
         $image_path = "../components/uploads/$proof";

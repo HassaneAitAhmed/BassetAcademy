@@ -4,16 +4,7 @@
     
     $year = isset($_GET['year']) ? $_GET['year'] : 1;
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "bassetdb";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    require_once 'db_connection.php';
 
     $semester = '';
     if ($year == 1) {
@@ -181,9 +172,7 @@
     </div>
 
     <?php
-    // Close the prepared statement and database connection
-    $stmt->close();
-    $conn->close();
+    
     ?>
 
 </body>

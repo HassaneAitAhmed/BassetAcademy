@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
-
-@$connection = new mysqli($servername, $username, $password, $dbname);
+include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['new_password'], $_POST['confirm_password'])) {
@@ -35,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $user_id = $_SESSION['UserID_resetPass'];
 
                 $query = 'UPDATE User SET User_Password = ? WHERE UserID = ?';
-                $stmt = $connection->prepare($query);
+                $stmt = $conn->prepare($query);
                 $stmt->bind_param('si', $hashed_password, $user_id);
                 $stmt->execute();
                 header("Location: SignIn.php");

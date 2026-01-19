@@ -2,16 +2,8 @@
 
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bassetdb";
+include 'db_connection.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'errors' => ['general' => 'Database connection failed.']]));
-}
 
 $response = ['success' => false, 'errors' => []];
 

@@ -4,19 +4,7 @@ session_start();
 
 header('Content-Type: application/json');
 
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'errors' => ['general' => 'Failed to connect to the database.']]);
-    exit();
-}
+include 'db_connection.php';
 
 // Initialize response array
 $response = [
@@ -91,19 +79,19 @@ $userID = $_SESSION['user']['UserID']; // Ensure this is set correctly
 $type = 'exam';
 
 $sql = "INSERT INTO Tasks (UserID, Task_title, Task_description, Task_file, Task_solution, DueDate, Type, course_ID)
-        VALUES ('$userID', '$title', '$description', '$examFilePath', '$examSolutionFilePath', '$duedate', '$type', '$course_id')";
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("issssssi", $userID, $title, $description, $examFilePath, $examSolutionFilePath, $duedate, $type, $course_id);
 
-if ($conn->query($sql) === TRUE) {
+if ($stmt->execute()) {
     $response['success'] = true;
-    echo json_encode($response);
-    exit();
 } else {
     $response['errors']['general'] = 'Failed to save the exam. Please try again.';
-    echo json_encode($response);
-    exit();
 }
+echo json_encode($response);
 
 // Close connection
+$stmt->close();
 $conn->close();
 
 ?>

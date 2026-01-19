@@ -4,23 +4,15 @@ if (isset($_SESSION["sign_in_error"])) {
     unset($_SESSION["sign_in_error"]); 
 }
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
+include 'db_connection.php';
 
-@$Connection = new mysqli($servername, $username, $password, $dbname);
-
-if ($Connection->connect_error) {
-    die("Connection failed: " . $Connection->connect_error);
-}
 
 if (isset($_POST['email']) && isset($_POST['password']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
     $emailQuery = "SELECT * FROM `user` WHERE User_Email = ?";
-    $stmt = $Connection->prepare($emailQuery);
+    $stmt = $conn->prepare($emailQuery);
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -31,7 +23,7 @@ if (isset($_POST['email']) && isset($_POST['password']) && $_SERVER['REQUEST_MET
                 $_SESSION['user'] = $userRow;
                 $userID = $userRow['UserID'];
 
-                trackUserLogin($Connection, $userID);
+                trackUserLogin($conn, $userID);
 
                 if ($userRow['Role'] == 'Student') {
                     header("Location: ../student.php");
@@ -47,10 +39,10 @@ if (isset($_POST['email']) && isset($_POST['password']) && $_SERVER['REQUEST_MET
         $_SESSION["sign_in_error"] = "تعذر تسجيل الدخول بسبب إدخال معلومات غير صحيحة";
     }
     $stmt->close();
-    $Connection->close();
+    $conn->close();
 }
 
-function trackUserLogin($Connection, $userID) {
+function trackUserLogin($conn, $userID) {
     $deviceType = $_SERVER['HTTP_USER_AGENT'];
     $deviceName = getDeviceName($deviceType);
     $deviceOperator = getDeviceOperator($deviceType);
@@ -59,7 +51,7 @@ function trackUserLogin($Connection, $userID) {
     $currentDateTime = date("Y-m-d H:i:s");
 
     $selectQuery = "SELECT studSecuID FROM StudentSecurity WHERE UserID = ? ORDER BY logtime DESC LIMIT 10";
-    $selectStmt = $Connection->prepare($selectQuery);
+    $selectStmt = $conn->prepare($selectQuery);
     $selectStmt->bind_param('i', $userID);
     $selectStmt->execute();
     $result = $selectStmt->get_result();
@@ -73,7 +65,7 @@ function trackUserLogin($Connection, $userID) {
     var_dump($existingIDs);
 
     $countQuery = "SELECT COUNT(*) FROM StudentSecurity WHERE UserID = ?";
-    $countStmt = $Connection->prepare($countQuery);
+    $countStmt = $conn->prepare($countQuery);
     $countStmt->bind_param('i', $userID);
     $countStmt->execute();
     $countResult = $countStmt->get_result()->fetch_row();
@@ -81,20 +73,20 @@ function trackUserLogin($Connection, $userID) {
     $countStmt->close();
 
     if ($totalRecords > 10) {
-        $deleteQuery = "DELETE FROM StudentSecurity WHERE UserID = ? AND studSecuID NOT IN (" . implode(',', array_fill(0, count($existingIDs), '?')) . ")";
-        
-
         if (!empty($existingIDs)) {
-            $deleteStmt = $Connection->prepare($deleteQuery);
+            $placeholders = implode(',', array_fill(0, count($existingIDs), '?'));
+            $deleteQuery = "DELETE FROM StudentSecurity WHERE UserID = ? AND studSecuID NOT IN ($placeholders)";
+            
+            $deleteStmt = $conn->prepare($deleteQuery);
             $params = array_merge([$userID], $existingIDs);
-            $types = str_repeat('i', count($params));
+            $types = 'i' . str_repeat('i', count($existingIDs));
             $deleteStmt->bind_param($types, ...$params);
             $deleteStmt->execute();
             $deleteStmt->close();
         }
     }
 
-    $stmt = $Connection->prepare("INSERT INTO StudentSecurity (UserID, devicetype, devicename, deviceoperator, browser, logtime)
+    $stmt = $conn->prepare("INSERT INTO StudentSecurity (UserID, devicetype, devicename, deviceoperator, browser, logtime)
                                   VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param('isssss', $userID, $deviceType, $deviceName, $deviceOperator, $browser, $currentDateTime);
 

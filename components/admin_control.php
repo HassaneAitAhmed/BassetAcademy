@@ -10,12 +10,8 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
     echo "Access denied. You do not have permission to access this page.";
     exit();
 }
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bassetdb";
+include 'db_connection.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $adminFName = $_POST['adminFName'];

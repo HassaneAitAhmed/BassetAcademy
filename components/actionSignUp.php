@@ -2,16 +2,7 @@
 session_start();
 unset($_SESSION["signup_errors"]);
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
-
-@$My_connection = new mysqli($servername, $username, $password, $dbname);
-
-if ($My_connection->connect_error) {
-    die("Connection failed: " . $My_connection->connect_error);
-}
+include 'db_connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['lastName']) || 
@@ -68,12 +59,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['confirmPassword'] = "كلمة المرور غير مطابقة";
     }
 
+    $sql = "SELECT * FROM user WHERE User_Email = ? OR User_Phone = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $phoneNum);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if ($row['User_Email'] === $email) {
+            $errors['email'] = "هذا البريد الإلكتروني مستخدم بالفعل.";
+        }
+        if ($row['User_Phone'] === $phoneNum) {
+            $errors['phoneNum'] = "رقم الهاتف هذا مستخدم بالفعل.";
+        }
+    }
+    $stmt->close();
+
     if (empty($errors)) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $query = 'INSERT INTO `user` (`User_Email`, `User_Password`, `Role`, `User_FirstName`, `User_LastName`, `User_Phone`, `User_Branch`, `User_Level`, `User_Points`) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $stmt = $My_connection->prepare($query);
+        $stmt = $conn->prepare($query);
         $stmt->bind_param('ssssssssi', $email, $hashedPassword, $Role, $firstName, $lastName, $phoneNum, $branch, $studyLevel, $Points);
 
         if ($stmt->execute()) {
@@ -88,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION["signup_errors"] = $errors;
     }
 
-    $My_connection->close();
     header('Location: SignUp.php');
     exit();
 }

@@ -5,16 +5,7 @@ $user_id = $_SESSION['user']['UserID'];
 
 $tutorial_ID = isset($_GET['tutorial_ID']) ? $_GET['tutorial_ID'] : 0;
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bassetdb";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("فشل الاتصال: " . $conn->connect_error);
-}
+require_once 'db_connection.php';
 
 $stmt = $conn->prepare("SELECT * FROM Tutorials WHERE tutorial_ID = ?");
 $stmt->bind_param("i", $tutorial_ID);
@@ -253,5 +244,5 @@ $stmt->close();
 </html>
 
 <?php
-$conn->close();
+
 ?>

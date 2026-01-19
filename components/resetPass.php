@@ -9,11 +9,8 @@ require 'src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$servername = 'localhost';
-$username = 'root';
-$password = '';
-$dbname = 'bassetdb';
-$conn = new mysqli($servername, $username, $password, $dbname);
+include 'db_connection.php';
+
 
 function getUserByEmail($email) {
     global $conn;
@@ -43,12 +40,13 @@ function sendEmail($email, $code) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com'; 
         $mail->SMTPAuth = true;
-        $mail->Username = 'yahyamahdi4242@gmail.com'; 
-        $mail->Password = 'rejnfmqxeodychan'; 
+        // TODO: Replace with your own email and password
+        $mail->Username = 'your_email@gmail.com'; 
+        $mail->Password = 'your_password'; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
     
-        $mail->setFrom('yahyamahdi4242@gmail.com', 'Basset Academy');
+        $mail->setFrom('your_email@gmail.com', 'Basset Academy');
         $mail->addAddress($email);
     
         $mail->isHTML(true);

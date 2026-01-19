@@ -31,11 +31,7 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
 
     <?php
     // Database connection
-    $conn = new mysqli('localhost', 'root', '', 'bassetdb');
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include 'db_connection.php';
 
     // Delete course
     if (isset($_POST['delete'])) {
@@ -219,7 +215,10 @@ if ($_SESSION['user']['Role'] !== 'Admin') {
                                 <h3>Manage Summaries</h3>
                                 <?php
                                 $courseID = $row['CourseID'];
-                                $summaries = $conn->query("SELECT * FROM CourseSummarize WHERE CourseID = $courseID");
+                                $stmt = $conn->prepare("SELECT * FROM CourseSummarize WHERE CourseID = ?");
+                                $stmt->bind_param("i", $courseID);
+                                $stmt->execute();
+                                $summaries = $stmt->get_result();
                                 ?>
                                 <ul>
                                     <?php while ($summary = $summaries->fetch_assoc()): ?>
